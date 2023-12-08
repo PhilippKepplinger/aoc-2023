@@ -2,7 +2,7 @@ package at.pkepp
 package puzzle5
 
 import at.pkepp.puzzle5.InputParser
-import at.pkepp.puzzle5.DestinationDescription
+import at.pkepp.puzzle5.DestinationMap
 import at.pkepp.puzzle5.DestinationCalculator
 import at.pkepp.puzzle5.Puzzle
 
@@ -14,6 +14,7 @@ class Puzzle5Test extends AnyFunSpec {
     it("should parse file correctly") {
       val parsedInput = InputParser("puzzle5/test-input-1.txt").parse()
       assert(parsedInput.seeds.size == 4)
+      assert(parsedInput.seedRanges.size == 2)
       assert(parsedInput.seedToSoil.size == 2)
       assert(parsedInput.soilToFertilizer.size == 3)
       assert(parsedInput.fertilizerToWater.size == 4)
@@ -25,7 +26,7 @@ class Puzzle5Test extends AnyFunSpec {
   }
 
   describe("Destination Description") {
-    val destDescription = DestinationDescription(50, 98, 2)
+    val destDescription = DestinationMap(50, 98, 2)
 
     it("should be in range") {
       assert(destDescription.isInSrcRange(98))
@@ -45,8 +46,8 @@ class Puzzle5Test extends AnyFunSpec {
 
   describe("Destination Calculator") {
     val descriptions = List(
-      DestinationDescription(50, 98, 2),
-      DestinationDescription(52, 50, 48),
+      DestinationMap(50, 98, 2),
+      DestinationMap(52, 50, 48),
     )
 
     it("should not find any destination before range") {
@@ -90,8 +91,13 @@ class Puzzle5Test extends AnyFunSpec {
       assert(puzzle.getLocation(13) == 35)
     }
 
-    it("should get nearest location") {
-      assert(puzzle.getNearestLocation == 35)
+    it("should solve part one") {
+      assert(puzzle.solvePartOne == 35)
+    }
+
+    it("should solve part two") {
+      val res = puzzle.solvePartTwo
+      assert(res == 46)
     }
   }
 }

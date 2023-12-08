@@ -1,29 +1,20 @@
 package at.pkepp
 package at.pkepp.puzzle5
 
-class DestinationDescription(val destStart: Long, val srcStart: Long, val length: Long) {
-  val srcEnd: Long = srcStart + length - 1
-  val offset: Long = destStart - srcStart
+import scala.collection.immutable.NumericRange
 
-  def isInSrcRange(value: Long): Boolean = {
-    value >= srcStart && value <= srcEnd
-  }
 
-  def getDest(src: Long): Long = {
-    if (!isInSrcRange(src)) {
-      throw IndexOutOfBoundsException("src is not in description range.")
-    }
-
-    src + offset
-  }
+class SeedRange(val seedStart: Long, val length: Long) {
+  val seedEnd: Long = seedStart + length - 1
 }
 
 class ParsedInput(val seeds: List[Long],
-                  val seedToSoil: List[DestinationDescription],
-                  val soilToFertilizer: List[DestinationDescription],
-                  val fertilizerToWater: List[DestinationDescription],
-                  val waterToLight: List[DestinationDescription],
-                  val lightToTemperature: List[DestinationDescription],
-                  val temperatureToHumidity: List[DestinationDescription],
-                  val humidityToLocation: List[DestinationDescription]) {
+                  val seedRanges: List[SeedRange],
+                  val seedToSoil: List[DestinationMap],
+                  val soilToFertilizer: List[DestinationMap],
+                  val fertilizerToWater: List[DestinationMap],
+                  val waterToLight: List[DestinationMap],
+                  val lightToTemperature: List[DestinationMap],
+                  val temperatureToHumidity: List[DestinationMap],
+                  val humidityToLocation: List[DestinationMap]) {
 }

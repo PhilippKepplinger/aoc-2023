@@ -1,6 +1,7 @@
 package at.pkepp
 package at.pkepp.puzzle5
 
+import scala.collection.immutable.NumericRange
 import scala.io.Source
 
 class InputParser(val file: String) {
@@ -13,6 +14,7 @@ class InputParser(val file: String) {
 
     ParsedInput(
       parseSeeds(blocks.apply(0)),
+      parseSeedRanges(blocks.apply(0)),
       parseMapDescription(blocks.apply(1)),
       parseMapDescription(blocks.apply(2)),
       parseMapDescription(blocks.apply(3)),
@@ -31,7 +33,19 @@ class InputParser(val file: String) {
       .toList
   }
 
-  private def parseMapDescription(block: String): List[DestinationDescription] = {
+  private def parseSeedRanges(block: String): List[SeedRange] = {
+    val seeds = parseSeeds(block)
+    val pairs = seeds.size / 2
+    var res = List[SeedRange]()
+
+    for (i <- 0 until pairs) {
+      res = res :+ SeedRange(seeds.apply(i * 2), seeds.apply((i * 2) + 1))
+    }
+
+    res
+  }
+
+  private def parseMapDescription(block: String): List[DestinationMap] = {
     val lines = block.split("\n")
     val linesWithoutHeader = lines.toList.splitAt(1)._2
     linesWithoutHeader
@@ -40,7 +54,7 @@ class InputParser(val file: String) {
         .map(_.toLong)
       )
       .map(line => {
-        DestinationDescription(line.apply(0), line.apply(1), line.apply(2))
+        DestinationMap(line.apply(0), line.apply(1), line.apply(2))
       })
   }
 }
