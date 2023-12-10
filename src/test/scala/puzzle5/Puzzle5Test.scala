@@ -4,7 +4,7 @@ package puzzle5
 import at.pkepp.puzzle5.InputParser
 import at.pkepp.puzzle5.DestinationMap
 import at.pkepp.puzzle5.DestinationCalculator
-import at.pkepp.puzzle5.Puzzle
+import at.pkepp.puzzle5.Puzzle5
 
 import org.scalatest.funspec.AnyFunSpec
 
@@ -12,7 +12,7 @@ class Puzzle5Test extends AnyFunSpec {
 
   describe("Puzzle Input Reader") {
     it("should parse file correctly") {
-      val parsedInput = InputParser("puzzle5/test-input-1.txt").parse()
+      val parsedInput = InputParser("puzzle5/example-input.txt").parse()
       assert(parsedInput.seeds.size == 4)
       assert(parsedInput.seedRanges.size == 2)
       assert(parsedInput.seedToSoil.size == 2)
@@ -82,7 +82,7 @@ class Puzzle5Test extends AnyFunSpec {
   }
 
   describe("Puzzle") {
-    val puzzle = Puzzle("puzzle5/test-input-1.txt")
+    val puzzle = Puzzle5("puzzle5/example-input.txt")
 
     it("should map seeds correctly") {
       assert(puzzle.getLocation(79) == 82)

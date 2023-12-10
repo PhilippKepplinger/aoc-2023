@@ -5,7 +5,7 @@ import concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{Await, Future}
 import scala.concurrent.duration.*
 
-class Puzzle(val file: String) {
+class Puzzle5(val file: String) {
 
   val parsedInput: ParsedInput = InputParser(file).parse()
 
